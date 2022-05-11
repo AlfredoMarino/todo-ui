@@ -1,22 +1,21 @@
 import "./TodoItem.css"
+import {Todo} from "../App";
 
-export const TodoItem = (props: any) => {
-    const onComplete = () => {
-        alert("Ya completaste el Todo " + props.text)
-    };
+interface TodoItemProps {
+    todo: Todo;
+    onComplete: any;
+    onDelete: any;
+}
 
-    const onDelete = () => {
-        alert("Borraste el Todo " + props.text)
-    };
-
+export const TodoItem = ({ todo, onComplete, onDelete } :TodoItemProps) => {
     return (
         <li className="TodoItem">
             <span
-                className={`Icon Icon-check ${props.isCompleted && 'Icon-check--active'}`}
+                className={`Icon Icon-check ${todo.isCompleted && 'Icon-check--active'}`}
                 onClick={onComplete}
             >√</span>
-            <p className={`TodoItem-p ${props.isCompleted && 'TodoItem-p--complete'}`}>
-                {props.text}
+            <p className={`TodoItem-p ${todo.isCompleted && 'TodoItem-p--complete'}`}>
+                {todo.text}
             </p>
             <span className="Icon Icon-delete" onClick={onDelete}>X</span>
         </li>

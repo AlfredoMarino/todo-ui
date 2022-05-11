@@ -1,9 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import "./TodoSearch.css"
 
-export const TodoSearch = () => {
+interface TodoSearchProps {
+    searchValue: string;
+    setSearchValue: Function;
+}
+
+export const TodoSearch = ({ searchValue, setSearchValue }: TodoSearchProps) => {
     const onSearchValueChange = (event: any) => {
         console.log(event.target.value)
+        setSearchValue(event.target.value);
     };
 
     return (
@@ -11,6 +17,7 @@ export const TodoSearch = () => {
             className="TodoSearch"
             placeholder={"Search"}
             onChange={onSearchValueChange}
+            value={searchValue}
         />
     );
 }

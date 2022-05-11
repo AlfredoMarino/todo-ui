@@ -1,6 +1,11 @@
 import React from "react";
 import "./TodoCounter.css"
 
-export const TodoCounter = () => {
-    return <h2 className="TodoCounter">Has completado 2 de 4 TODOs</h2>
+interface TodoCounterProps {
+    todosCompleted: number;
+    totalTodos: number;
+}
+
+export const TodoCounter = ({todosCompleted, totalTodos}: TodoCounterProps) => {
+    return <h2 className="TodoCounter">Has completado {todosCompleted} de {totalTodos} TODOs</h2>
 }
