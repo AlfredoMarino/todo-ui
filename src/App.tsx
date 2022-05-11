@@ -32,27 +32,42 @@ const defaultTodos: Todo[] = [
 ]
 
 function App() {
-    const [todos, setTodos] = useState(defaultTodos);
+    const localStorageTodos = localStorage.getItem("TODOS_V1");
+    let parsedTodos;
+
+    if (!localStorageTodos) {
+        localStorage.setItem("TODOS_V1", JSON.stringify([]));
+        parsedTodos = [];
+    } else {
+        parsedTodos = JSON.parse(localStorageTodos);
+    }
+
+    const [todos, setTodos] = useState(parsedTodos);
     const [searchValue, setSearchValue] = useState("");
 
-    const todosCompleted = todos.filter(todo => todo.isCompleted).length;
+    const todosCompleted = todos.filter((todo: Todo) => todo.isCompleted).length;
     const totalTodos = todos.length;
+
+    const saveTodos = (newTodos: Todo[]) => {
+        localStorage.setItem("TODOS_V1", JSON.stringify(newTodos));
+        setTodos(newTodos);
+    }
 
     const searchFilter = (todo: Todo) => todo.text.toLowerCase().includes(searchValue.toLowerCase());
 
     const completeTodo = (todoId: number) => {
-        const newTodos = todos.map(todo => {
+        const newTodos = todos.map((todo: Todo) => {
             if (todo.id === todoId) {
                 todo.isCompleted = true;
             }
             return todo;
         });
-        setTodos(newTodos);
+        saveTodos(newTodos);
     };
 
     const deleteTodo = (todoId: number) => {
-        const newTodos = todos.filter(todo => todo.id !== todoId);
-        setTodos(newTodos);
+        const newTodos = todos.filter((todo: Todo) => todo.id !== todoId);
+        saveTodos(newTodos);
     };
 
     return (
