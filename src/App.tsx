@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import {TodoCounter} from "./component/TodoCounter";
-import {TodoSearch} from "./component/TodoSearch";
-import {CreateTodoButton} from "./component/CreateTodoButton";
-import {TodoList} from "./component/TodoList";
-import {TodoItem} from "./component/TodoItem";
+import {AppUI} from "./AppUI";
 
 export interface Todo {
     id: number;
@@ -60,23 +56,16 @@ function App() {
     };
 
     return (
-        <React.Fragment>
-            <TodoCounter todosCompleted={todosCompleted} totalTodos={totalTodos}/>
-            <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue}/>
-
-            <TodoList>
-                {todos.filter(searchFilter).map(todo => (
-                    <TodoItem
-                        key={todo.id}
-                        todo={todo}
-                        onComplete={() => completeTodo(todo.id)}
-                        onDelete={() => deleteTodo(todo.id)}
-                    />
-                ))}
-            </TodoList>
-            <CreateTodoButton/>
-
-        </React.Fragment>
+        <AppUI
+            todosCompleted={todosCompleted}
+            totalTodos={totalTodos}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            todos={todos}
+            searchFilter={searchFilter}
+            completeTodo={completeTodo}
+            deleteTodo={deleteTodo}
+        />
     );
 }
 

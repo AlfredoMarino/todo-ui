@@ -7,7 +7,7 @@ interface TodoItemProps {
     onDelete: any;
 }
 
-export const TodoItem = ({ todo, onComplete, onDelete } :TodoItemProps) => {
+export const TodoItem = ({todo, onComplete, onDelete}: TodoItemProps) => {
     return (
         <li className="TodoItem">
             <span

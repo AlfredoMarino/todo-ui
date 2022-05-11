@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import "./TodoSearch.css"
 
 interface TodoSearchProps {
@@ -8,7 +8,6 @@ interface TodoSearchProps {
 
 export const TodoSearch = ({ searchValue, setSearchValue }: TodoSearchProps) => {
     const onSearchValueChange = (event: any) => {
-        console.log(event.target.value)
         setSearchValue(event.target.value);
     };
 
