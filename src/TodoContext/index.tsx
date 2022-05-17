@@ -11,6 +11,7 @@ interface AppUIProps {
     setSearchValue: Function;
     todos: Todo[];
     searchFilter: any;
+    addTodo: Function;
     completeTodo: Function;
     deleteTodo: Function;
     openModal: boolean;
@@ -26,6 +27,7 @@ const defaultValue: AppUIProps = {
     setSearchValue: () => {},
     todos: [],
     searchFilter: null,
+    addTodo: () => {},
     completeTodo: () => {},
     deleteTodo: () => {},
     openModal: false,
@@ -64,6 +66,21 @@ export const TodoProvider = (props: any) => {
         saveTodos(newTodos);
     };
 
+    const addTodo = (text: string) => {
+        const newTodos: Todo[] = [...todos];
+        let id = 0;
+        if (newTodos.length > 0) {
+            id = Math.max(...newTodos.map(todo => todo.id)) + 1;
+        }
+
+        newTodos.push({
+            text,
+            id,
+            isCompleted: false
+        });
+        saveTodos(newTodos)
+    }
+
     return (
         <TodoContext.Provider value={{
             isLoading,
@@ -74,6 +91,7 @@ export const TodoProvider = (props: any) => {
             setSearchValue,
             todos,
             searchFilter,
+            addTodo,
             completeTodo,
             deleteTodo,
             openModal,

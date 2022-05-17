@@ -7,6 +7,7 @@ import React, {useContext} from "react";
 import {Todo} from "./App";
 import {TodoContext} from "./TodoContext";
 import {Modal} from "./modal";
+import {TodoForm} from "./TodoForm";
 
 export const AppUI = () => {
     const {
@@ -40,7 +41,7 @@ export const AppUI = () => {
 
             {openModal && (
                 <Modal>
-                    <p>Teleport</p>
+                    <TodoForm/>
                 </Modal>
             )}
             <CreateTodoButton/>
