@@ -7,6 +7,8 @@ import React from "react";
 import {Todo} from "./App";
 
 interface AppUIProps {
+    isLoading: boolean;
+    error: boolean;
     todosCompleted: number;
     totalTodos: number;
     searchValue: string;
@@ -19,6 +21,8 @@ interface AppUIProps {
 
 export const AppUI = (
     {
+        isLoading,
+        error,
         todosCompleted,
         totalTodos,
         searchValue,
@@ -35,6 +39,9 @@ export const AppUI = (
             <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue}/>
 
             <TodoList>
+                {error && <p>Hubo un error</p>}
+                {isLoading && <p>Estamos cargando...</p>}
+                {(!isLoading && !todos.length) && <p>Crea tu primer todo!!</p>}
                 {todos.filter(searchFilter).map((todo: Todo) => (
                     <TodoItem
                         key={todo.id}

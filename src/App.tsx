@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {AppUI} from "./AppUI";
 
@@ -29,29 +29,63 @@ const defaultTodos: Todo[] = [
         text: "Estudiar para la hackathon",
         isCompleted: false
     },
-]
+];
 
-function App() {
-    const localStorageTodos = localStorage.getItem("TODOS_V1");
-    let parsedTodos;
+const useLocalStorage = (itemId: string, initialValue: any) => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [item, setItem] = useState(initialValue);
 
-    if (!localStorageTodos) {
-        localStorage.setItem("TODOS_V1", JSON.stringify([]));
-        parsedTodos = [];
-    } else {
-        parsedTodos = JSON.parse(localStorageTodos);
+    useEffect(() => {
+        setTimeout(() => {
+            try {
+                const localStorageItem = localStorage.getItem(itemId);
+                let parsedItem;
+
+                if (!localStorageItem) {
+                    localStorage.setItem(itemId, JSON.stringify(initialValue));
+                    parsedItem = initialValue;
+                } else {
+                    parsedItem = JSON.parse(localStorageItem);
+                }
+                setItem(parsedItem);
+                setIsLoading(false);
+            } catch (e: any) {
+                console.error(e);
+                setError(e);
+            }
+        }, 1000);
+    }, []);
+
+    const saveItem = (newItem: any) => {
+        try {
+            localStorage.setItem(itemId, JSON.stringify(newItem));
+            setItem(newItem);
+        } catch (e: any) {
+            console.error(e);
+            setError(e);
+        }
     }
 
-    const [todos, setTodos] = useState(parsedTodos);
+    return {
+        item,
+        saveItem,
+        isLoading,
+        error
+    };
+}
+
+function App() {
+    const {
+        item: todos,
+        saveItem: saveTodos,
+        isLoading,
+        error
+    } = useLocalStorage("TODOS_V1", []);
     const [searchValue, setSearchValue] = useState("");
 
     const todosCompleted = todos.filter((todo: Todo) => todo.isCompleted).length;
     const totalTodos = todos.length;
-
-    const saveTodos = (newTodos: Todo[]) => {
-        localStorage.setItem("TODOS_V1", JSON.stringify(newTodos));
-        setTodos(newTodos);
-    }
 
     const searchFilter = (todo: Todo) => todo.text.toLowerCase().includes(searchValue.toLowerCase());
 
@@ -72,6 +106,8 @@ function App() {
 
     return (
         <AppUI
+            isLoading={isLoading}
+            error={error}
             todosCompleted={todosCompleted}
             totalTodos={totalTodos}
             searchValue={searchValue}
