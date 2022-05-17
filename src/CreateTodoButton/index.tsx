@@ -1,15 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./CreateTodoButton.css"
+import {TodoContext} from "../TodoContext";
 
 export const CreateTodoButton = () => {
-    const onClickButton = (msg: string) => {
-        alert(msg)
-    };
+    const { setOpenModal } = useContext(TodoContext);
 
     return (
         <button
             className="CreateTodoButton"
-            onClick={() => onClickButton("Aqui se levantara un modal")}
+            onClick={() => setOpenModal((prevState: boolean) => !prevState)}
         >
             +
         </button>

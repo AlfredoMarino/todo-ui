@@ -3,40 +3,26 @@ import {TodoSearch} from "./TodoSearch";
 import {TodoList} from "./TodoList";
 import {TodoItem} from "./TodoItem";
 import {CreateTodoButton} from "./CreateTodoButton";
-import React from "react";
+import React, {useContext} from "react";
 import {Todo} from "./App";
+import {TodoContext} from "./TodoContext";
+import {Modal} from "./modal";
 
-interface AppUIProps {
-    isLoading: boolean;
-    error: boolean;
-    todosCompleted: number;
-    totalTodos: number;
-    searchValue: string;
-    setSearchValue: Function;
-    todos: Todo[];
-    searchFilter: any;
-    completeTodo: Function;
-    deleteTodo: Function;
-}
-
-export const AppUI = (
-    {
-        isLoading,
+export const AppUI = () => {
+    const {
         error,
-        todosCompleted,
-        totalTodos,
-        searchValue,
-        setSearchValue,
+        isLoading,
         todos,
         searchFilter,
         completeTodo,
-        deleteTodo
-    }: AppUIProps
-) => {
+        deleteTodo,
+        openModal
+    } = useContext(TodoContext);
+
     return (
         <React.Fragment>
-            <TodoCounter todosCompleted={todosCompleted} totalTodos={totalTodos}/>
-            <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue}/>
+            <TodoCounter/>
+            <TodoSearch/>
 
             <TodoList>
                 {error && <p>Hubo un error</p>}
@@ -51,6 +37,12 @@ export const AppUI = (
                     />
                 ))}
             </TodoList>
+
+            {openModal && (
+                <Modal>
+                    <p>Teleport</p>
+                </Modal>
+            )}
             <CreateTodoButton/>
         </React.Fragment>
     )
