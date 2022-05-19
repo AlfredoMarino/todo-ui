@@ -1,10 +1,11 @@
-import React, {useContext} from "react";
+import React from "react";
 import "./CreateTodoButton.css"
-import {TodoContext} from "../TodoContext";
 
-export const CreateTodoButton = () => {
-    const { setOpenModal } = useContext(TodoContext);
+interface CreateTodoButtonProps {
+    setOpenModal: Function;
+}
 
+export const CreateTodoButton = ({ setOpenModal }: CreateTodoButtonProps) => {
     return (
         <button
             className="CreateTodoButton"

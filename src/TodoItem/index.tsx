@@ -1,5 +1,5 @@
 import "./TodoItem.css"
-import {Todo} from "../App";
+import {Todo} from "../App/App";
 
 interface TodoItemProps {
     todo: Todo;

@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Todo} from "../App";
+import {Todo} from "./App";
 
 const defaultTodos: Todo[] = [
     {

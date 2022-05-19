@@ -1,6 +1,6 @@
 import {createContext, useState} from "react";
 import {useLocalStorage} from "./useLocalStorage";
-import {Todo} from "../App";
+import {Todo} from "./App";
 
 interface AppUIProps {
     isLoading: boolean;
@@ -34,9 +34,7 @@ const defaultValue: AppUIProps = {
     setOpenModal: () => {}
 };
 
-export const TodoContext = createContext(defaultValue);
-
-export const TodoProvider = (props: any) => {
+export const useTodos = () => {
     const {
         item: todos,
         saveItem: saveTodos,
@@ -81,23 +79,19 @@ export const TodoProvider = (props: any) => {
         saveTodos(newTodos)
     }
 
-    return (
-        <TodoContext.Provider value={{
-            isLoading,
-            error,
-            todosCompleted,
-            totalTodos,
-            searchValue,
-            setSearchValue,
-            todos,
-            searchFilter,
-            addTodo,
-            completeTodo,
-            deleteTodo,
-            openModal,
-            setOpenModal
-        }}>
-            {props.children}
-        </TodoContext.Provider>
-    )
+    return {
+        isLoading,
+        error,
+        todosCompleted,
+        totalTodos,
+        searchValue,
+        setSearchValue,
+        todos,
+        searchFilter,
+        addTodo,
+        completeTodo,
+        deleteTodo,
+        openModal,
+        setOpenModal
+    }
 };
