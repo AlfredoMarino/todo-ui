@@ -9,6 +9,9 @@ import {Modal} from "../modal";
 import {TodoForm} from "../TodoForm";
 import { TodoHeader } from "../TodoHeader";
 import { useTodos } from './useTodos';
+import { TodoError } from '../TodoError';
+import { TodoLoading } from '../TodoLoading';
+import { EmptyTodos } from '../EmptyTodos';
 
 export interface Todo {
     id: number;
@@ -43,18 +46,24 @@ function App() {
                 <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
             </TodoHeader>
 
-            <TodoList>
-                {error && <p>Hubo un error</p>}
-                {isLoading && <p>Estamos cargando...</p>}
-                {(!isLoading && !todos.length) && <p>Crea tu primer todo!!</p>}
-                {todos.filter(searchFilter).map((todo: Todo) => (
+            <TodoList
+                error={error}
+                isLoading={isLoading}
+                searchText={searchValue}
+                totalTodos={totalTodos}
+                searchedTodos={todos.filter(searchFilter)}
+                onError={() => <TodoError/>}
+                onLoading={() => <TodoLoading/>}
+                onEmptySearchResults={(searchText: string) => <p>No hay resultados para la busqueda "{searchText}"</p>}
+            >
+                {(todo: Todo) => (
                     <TodoItem
                         key={todo.id}
                         todo={todo}
                         onComplete={() => completeTodo(todo.id)}
                         onDelete={() => deleteTodo(todo.id)}
                     />
-                ))}
+                )}
             </TodoList>
 
             {openModal && (

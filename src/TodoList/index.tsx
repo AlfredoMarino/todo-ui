@@ -2,10 +2,12 @@ import "./TodoList.css"
 
 export const TodoList = (props: any) => {
     return (
-        <section>
-            <ul>
-                {props.children}
-            </ul>
+        <section className="TodoList-container">
+            {props.error && props.onError()}
+            {props.isLoading && props.onLoading()}
+            {(!props.isLoading && !props.totalTodos) && props.onEmptyTodos()}
+            {(!!props.totalTodos && !props.searchedTodos.length) && props.onEmptySearchResults(props.searchText)}
+            {props.searchedTodos.map(props.render || props.children)}
         </section>
-    )
-}
+    );
+};
