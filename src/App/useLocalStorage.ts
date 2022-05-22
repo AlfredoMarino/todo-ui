@@ -26,6 +26,7 @@ const defaultTodos: Todo[] = [
 
 
 export const useLocalStorage = (itemId: string, initialValue: any) => {
+    const [isSync, setIsSync] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(false);
     const [item, setItem] = useState(initialValue);
@@ -44,12 +45,13 @@ export const useLocalStorage = (itemId: string, initialValue: any) => {
                 }
                 setItem(parsedItem);
                 setIsLoading(false);
+                setIsSync(true);
             } catch (e: any) {
                 console.error(e);
                 setError(e);
             }
         }, 3000);
-    }, []);
+    }, [isSync]);
 
     const saveItem = (newItem: any) => {
         try {
@@ -61,10 +63,16 @@ export const useLocalStorage = (itemId: string, initialValue: any) => {
         }
     }
 
+    const synchronize = () => {
+        setIsLoading(true);
+        setIsSync(false);
+    };
+
     return {
         item,
         saveItem,
         isLoading,
-        error
+        error,
+        synchronize
     };
 }

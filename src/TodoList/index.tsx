@@ -7,7 +7,7 @@ export const TodoList = (props: any) => {
             {props.isLoading && props.onLoading()}
             {(!props.isLoading && !props.totalTodos) && props.onEmptyTodos()}
             {(!!props.totalTodos && !props.searchedTodos.length) && props.onEmptySearchResults(props.searchText)}
-            {props.searchedTodos.map(props.render || props.children)}
+            {!props.isLoading && props.searchedTodos.map(props.render || props.children)}
         </section>
     );
 };

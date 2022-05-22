@@ -11,6 +11,8 @@ import { TodoHeader } from "../TodoHeader";
 import { useTodos } from './useTodos';
 import { TodoError } from '../TodoError';
 import { TodoLoading } from "../TodoLoading";
+import { ChangeAlertWithStorageListener } from "../ChangeAlert";
+import { EmptyTodos } from "../EmptyTodos";
 
 export interface Todo {
     id: number;
@@ -35,7 +37,9 @@ function App() {
         setSearchValue,
 
         addTodo,
-        setOpenModal
+        setOpenModal,
+
+        synchronizeTodos
     } = useTodos();
 
     return (
@@ -53,6 +57,7 @@ function App() {
                 searchedTodos={todos.filter(searchFilter)}
                 onError={() => <TodoError/>}
                 onLoading={() => <TodoLoading/>}
+                onEmptyTodos={() => <EmptyTodos/>}
                 onEmptySearchResults={(searchText: string) => <p>No hay resultados para la busqueda "{searchText}"</p>}
             >
                 {(todo: Todo) => (
@@ -64,6 +69,7 @@ function App() {
                     />
                 )}
             </TodoList>
+            <ChangeAlertWithStorageListener synchronize={synchronizeTodos} />
 
             {openModal && (
                 <Modal>

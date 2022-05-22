@@ -1,45 +1,14 @@
-import {createContext, useState} from "react";
-import {useLocalStorage} from "./useLocalStorage";
-import {Todo} from "./App";
-
-interface AppUIProps {
-    isLoading: boolean;
-    error: boolean;
-    todosCompleted: number;
-    totalTodos: number;
-    searchValue: string;
-    setSearchValue: Function;
-    todos: Todo[];
-    searchFilter: any;
-    addTodo: Function;
-    completeTodo: Function;
-    deleteTodo: Function;
-    openModal: boolean;
-    setOpenModal: Function;
-}
-
-const defaultValue: AppUIProps = {
-    isLoading: false,
-    error: false,
-    todosCompleted: 0,
-    totalTodos: 0,
-    searchValue: "",
-    setSearchValue: () => {},
-    todos: [],
-    searchFilter: null,
-    addTodo: () => {},
-    completeTodo: () => {},
-    deleteTodo: () => {},
-    openModal: false,
-    setOpenModal: () => {}
-};
+import { useState } from "react";
+import { useLocalStorage } from "./useLocalStorage";
+import { Todo } from "./App";
 
 export const useTodos = () => {
     const {
         item: todos,
         saveItem: saveTodos,
         isLoading,
-        error
+        error,
+        synchronize: synchronizeTodos
     } = useLocalStorage("TODOS_V1", []);
     const [searchValue, setSearchValue] = useState("");
     const [openModal, setOpenModal] = useState(false);
@@ -92,6 +61,7 @@ export const useTodos = () => {
         completeTodo,
         deleteTodo,
         openModal,
-        setOpenModal
+        setOpenModal,
+        synchronizeTodos
     }
 };
