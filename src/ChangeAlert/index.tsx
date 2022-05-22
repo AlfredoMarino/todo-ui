@@ -1,15 +1,22 @@
 import { withStorageListener } from "./withStorageListener";
+import './ChangeAlert.css';
 
 const ChangeAlert = ({ show, toggleShow }: any) => {
     if (show) {
         return (
-            <div>
-                <p>Hubo cambios!!</p>
-                <button onClick={() => toggleShow(false)}>
-                    Volver a cargar la informacion
-                </button>
+            <div className="ChangeAlert-bg">
+                <div className="ChangeAlert-container">
+                    <p>Parece que cambiaste tus TODOs en otra pestaña o ventana del navegador.</p>
+                    <p>¿Quieres sincronizar tus TODOs?</p>
+                    <button
+                        className="TodoForm-button TodoForm-button--add"
+                        onClick={toggleShow}
+                    >
+                        Yes!
+                    </button>
+                </div>
             </div>
-        )
+        );
     } else {
         return null;
     }
