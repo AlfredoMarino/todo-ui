@@ -1,9 +1,15 @@
+import { Children, cloneElement } from "react";
 
+interface TodoHeaderProps {
+    children: any;
+    isLoading: boolean;
+}
 
-export const TodoHeader = (props: any) => {
+export const TodoHeader = ({ children, isLoading }: TodoHeaderProps) => {
     return (
         <header>
-            {props.children}
+            {Children.toArray(children)
+                .map((child: any) => cloneElement(child, { isLoading }))}
         </header>
     );
 };

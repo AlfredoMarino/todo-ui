@@ -1,17 +1,16 @@
 import React from 'react';
 import './App.css';
-import {TodoCounter} from "../TodoCounter";
-import {TodoSearch} from "../TodoSearch";
-import {TodoList} from "../TodoList";
-import {TodoItem} from "../TodoItem";
-import {CreateTodoButton} from "../CreateTodoButton";
-import {Modal} from "../modal";
-import {TodoForm} from "../TodoForm";
+import { TodoCounter } from "../TodoCounter";
+import { TodoSearch } from "../TodoSearch";
+import { TodoList } from "../TodoList";
+import { TodoItem } from "../TodoItem";
+import { CreateTodoButton } from "../CreateTodoButton";
+import { Modal } from "../modal";
+import { TodoForm } from "../TodoForm";
 import { TodoHeader } from "../TodoHeader";
 import { useTodos } from './useTodos';
 import { TodoError } from '../TodoError';
-import { TodoLoading } from '../TodoLoading';
-import { EmptyTodos } from '../EmptyTodos';
+import { TodoLoading } from "../TodoLoading";
 
 export interface Todo {
     id: number;
@@ -28,10 +27,10 @@ function App() {
         completeTodo,
         deleteTodo,
         openModal,
-        
+
         todosCompleted,
         totalTodos,
-        
+
         searchValue,
         setSearchValue,
 
@@ -41,9 +40,9 @@ function App() {
 
     return (
         <React.Fragment>
-            <TodoHeader>
-                <TodoCounter todosCompleted={todosCompleted} totalTodos={totalTodos} />
-                <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
+            <TodoHeader isLoading={isLoading}>
+                <TodoCounter todosCompleted={todosCompleted} totalTodos={totalTodos}/>
+                <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue}/>
             </TodoHeader>
 
             <TodoList
@@ -68,10 +67,10 @@ function App() {
 
             {openModal && (
                 <Modal>
-                    <TodoForm addTodo={addTodo} setOpenModal={setOpenModal} />
+                    <TodoForm addTodo={addTodo} setOpenModal={setOpenModal}/>
                 </Modal>
             )}
-            <CreateTodoButton setOpenModal={setOpenModal} />
+            <CreateTodoButton setOpenModal={setOpenModal}/>
         </React.Fragment>
     )
 }

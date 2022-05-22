@@ -4,9 +4,10 @@ import "./TodoSearch.css"
 interface TodoSearchProps {
     searchValue: string;
     setSearchValue: Function;
+    isLoading?: boolean;
 }
 
-export const TodoSearch = ({ searchValue, setSearchValue }: TodoSearchProps) => {
+export const TodoSearch = ({ searchValue, setSearchValue, isLoading }: TodoSearchProps) => {
 
     const onSearchValueChange = (event: any) => {
         setSearchValue(event.target.value);
@@ -18,6 +19,7 @@ export const TodoSearch = ({ searchValue, setSearchValue }: TodoSearchProps) => 
             placeholder={"Search"}
             onChange={onSearchValueChange}
             value={searchValue}
+            disabled={isLoading}
         />
     );
 }
