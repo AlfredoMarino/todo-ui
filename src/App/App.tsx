@@ -11,8 +11,8 @@ import { TodoHeader } from "../TodoHeader";
 import { useTodos } from './useTodos';
 import { TodoError } from '../TodoError';
 import { TodoLoading } from "../TodoLoading";
-import { ChangeAlertWithStorageListener } from "../ChangeAlert";
 import { EmptyTodos } from "../EmptyTodos";
+import { ChangeAlert } from "../ChangeAlert";
 
 export interface Todo {
     id: number;
@@ -69,7 +69,7 @@ function App() {
                     />
                 )}
             </TodoList>
-            <ChangeAlertWithStorageListener synchronize={synchronizeTodos} />
+            <ChangeAlert synchronize={synchronizeTodos} />
 
             {openModal && (
                 <Modal>
